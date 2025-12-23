@@ -148,7 +148,7 @@ def test_download_writes_file_and_selects_quality(monkeypatch, tmp_path):
     # Mock session.get to return streaming response
     resp = make_mock_response(status_code=200, content=content, headers={'content-length': str(len(content))})
     # Ensure json is not used; set attributes used by download
-    monkeypatch.setattr(dl.session, 'get', lambda url, headers, stream, timeout: resp)
+    monkeypatch.setattr(dl.session, 'get', lambda *args, **kwargs: resp)
 
     out = tmp_path / "out.mp4"
     result = dl.download(str(out), itag=99)
